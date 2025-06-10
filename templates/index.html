@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SlotBookingSystum</title>
+    <title>Slot Booking System</title>
     <style>
       * {
         box-sizing: border-box;
@@ -25,12 +25,20 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         width: 100%;
         max-width: 400px;
+        text-align: center;
       }
 
-      h2 {
-        text-align: center;
+      h1 {
+        margin-bottom: 10px;
+        font-size: 26px;
+        color: #007bff;
+      }
+
+      p {
+        margin-top: 0;
+        color: #555;
+        font-size: 14px;
         margin-bottom: 20px;
-        color: #333;
       }
 
       label {
@@ -38,10 +46,10 @@
         margin-top: 15px;
         margin-bottom: 5px;
         font-weight: 500;
+        text-align: left;
       }
 
-      input,
-      select {
+      input {
         width: 100%;
         padding: 10px 12px;
         border: 1px solid #ccc;
@@ -50,8 +58,7 @@
         transition: border-color 0.2s;
       }
 
-      input:focus,
-      select:focus {
+      input:focus {
         border-color: #007bff;
         outline: none;
       }
@@ -62,6 +69,7 @@
         font-weight: bold;
         text-align: center;
       }
+
       button {
         margin-top: 20px;
         width: 100%;
@@ -79,19 +87,53 @@
       button:hover {
         background-color: #0056b3;
       }
+
+      .register-link {
+        margin-top: 15px;
+        display: block;
+        text-align: center;
+        color: #007bff;
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      .register-link:hover {
+        text-decoration: underline;
+      }
     </style>
   </head>
   <body>
     <form method="POST" action="/">
+      <h1>Slot Booking System</h1>
+      <p>Welcome back! Please login to continue.</p>
+
       {% if error %}
       <div class="error-message">{{ error }}</div>
       {% endif %}
 
       <label for="username">Username</label>
-      <input type="text" id="username" name="username" />
+      <input
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Enter your username"
+        required
+      />
+
       <label for="password">Password</label>
-      <input type="password" id="password" name="password" />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Enter your password"
+        required
+      />
+
       <button type="submit">Login</button>
+
+      <a class="register-link" href="/register"
+        >Don't have an account? Register here</a
+      >
     </form>
   </body>
 </html>
