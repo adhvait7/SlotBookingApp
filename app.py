@@ -83,7 +83,7 @@ def register():
         if role not in ['student','staff']:
             return "Invalid Role", 400
         if users_collection.find_one({'username': username}):
-            return "Username already exists", 409
+            return redirect('/')
 
         hashed_password = generate_password_hash(password)
 
