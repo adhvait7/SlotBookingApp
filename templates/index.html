@@ -1,75 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Slot Booking System</title>
     <style>
       * {
         box-sizing: border-box;
       }
-
       body {
         margin: 0;
         padding: 0;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         background-color: #f0f2f5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
       }
-
-      form {
-        background-color: #fff;
+      header {
+        background-color: #007bff;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 32px;
+      }
+      header p {
+        margin: 5px 0 0;
+        font-size: 16px;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+      }
+      .info {
+        max-width: 800px;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .info h2 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      .info p {
+        color: #555;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      .features {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 30px;
+      }
+      .feature-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 200px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .feature-card h3 {
+        margin-top: 0;
+        font-size: 18px;
+        color: #007bff;
+      }
+      .feature-card p {
+        font-size: 14px;
+        color: #555;
+      }
+      .form-container {
+        background: #fff;
         padding: 30px 40px;
         border-radius: 12px;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         width: 100%;
         max-width: 400px;
+      }
+      form {
         text-align: center;
       }
-
-      h1 {
-        margin-bottom: 10px;
-        font-size: 26px;
+      form h2 {
         color: #007bff;
+        margin-bottom: 10px;
       }
-
-      p {
-        margin-top: 0;
+      form p {
         color: #555;
-        font-size: 14px;
         margin-bottom: 20px;
       }
-
       label {
         display: block;
-        margin-top: 15px;
-        margin-bottom: 5px;
-        font-weight: 500;
+        margin: 10px 0 5px;
         text-align: left;
+        font-weight: 500;
       }
-
       input {
         width: 100%;
-        padding: 10px 12px;
+        padding: 10px;
         border: 1px solid #ccc;
         border-radius: 6px;
         font-size: 14px;
         transition: border-color 0.2s;
       }
-
       input:focus {
         border-color: #007bff;
         outline: none;
       }
-
       .error-message {
         color: red;
-        margin-bottom: 15px;
+        margin: 10px 0;
         font-weight: bold;
         text-align: center;
       }
-
       button {
         margin-top: 20px;
         width: 100%;
@@ -83,57 +128,96 @@
         font-size: 16px;
         transition: background-color 0.2s;
       }
-
       button:hover {
         background-color: #0056b3;
       }
-
       .register-link {
-        margin-top: 15px;
         display: block;
-        text-align: center;
+        margin-top: 15px;
         color: #007bff;
         font-size: 14px;
         text-decoration: none;
       }
-
       .register-link:hover {
         text-decoration: underline;
+      }
+      footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+        color: #777;
       }
     </style>
   </head>
   <body>
-    <form method="POST" action="/">
+    <header>
       <h1>Slot Booking System</h1>
-      <p>Welcome back! Please login to continue.</p>
-
-      {% if error %}
-      <div class="error-message">{{ error }}</div>
-      {% endif %}
-
-      <label for="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        placeholder="Enter your username"
-        required
-      />
-
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        placeholder="Enter your password"
-        required
-      />
-
-      <button type="submit">Login</button>
-
-      <a class="register-link" href="/register"
-        >Don't have an account? Register here</a
-      >
-    </form>
+      <p>
+        Effortlessly schedule appointments and classes for gyms and
+        institutions.
+      </p>
+    </header>
+    <main>
+      <section class="info">
+        <h2>About This Project</h2>
+        <p>
+          SlotBookingApp is a dynamic scheduling platform built with Flask and
+          MongoDB Atlas. It provides role-based dashboards for staff and
+          students, real-time availability updates, and a secure login system to
+          streamline appointment management.
+        </p>
+        <h2>Upcoming Features</h2>
+        <div class="features">
+          <div class="feature-card">
+            <h3>Feedback Module</h3>
+            <p>
+              Collect user feedback directly and store it in the database for
+              continuous improvement.
+            </p>
+          </div>
+          <div class="feature-card">
+            <h3>Notification System</h3>
+            <p>
+              Real-time email and SMS alerts for bookings, cancellations, and
+              reminders.
+            </p>
+          </div>
+          <div class="feature-card">
+            <h3>Admin Controls</h3>
+            <p>Advanced admin panel to manage users, slots, and analytics.</p>
+          </div>
+        </div>
+      </section>
+      <div class="form-container">
+        <form method="POST" action="/">
+          <h2>Login to Your Account</h2>
+          <p>Enter your credentials to access the dashboard.</p>
+          {% if error %}
+          <div class="error-message">{{ error }}</div>
+          {% endif %}
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter your username"
+            required
+          />
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
+          <button type="submit">Login</button>
+          <a class="register-link" href="/register"
+            >Don't have an account? Register here</a
+          >
+        </form>
+      </div>
+    </main>
+    <footer>&copy; 2025 SlotBookingApp. All rights reserved.</footer>
   </body>
 </html>
