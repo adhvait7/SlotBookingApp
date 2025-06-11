@@ -163,9 +163,9 @@ def book_slot():
             }
         )
         if result.modified_count > 0:
-            print("Slot successfully booked by staff.")
+              flash("✅ Slot successfully booked!")
         else:
-            print("Failed to book slot (staff).")
+              flash("Error!")
         return redirect('/staff-dashboard')
     elif session['role'] == "student":
         booking_time = request.form.get('timeDropDown')
@@ -188,9 +188,9 @@ def book_slot():
             }
         )
         if result.modified_count > 0:
-            print("Slot successfully booked by student.")
+              flash("✅ Slot successfully booked!")
         else:
-            print("Failed to book slot (student).")
+            flash("⚠️ You have already enrolled or slot is unavailable.")
         return redirect('/student-dashboard')
 
 
