@@ -152,46 +152,38 @@
   <body>
     <header>
       <h1>Slot Booking System</h1>
-      <p>
-        Effortlessly schedule appointments and classes for gyms and
-        institutions.
-      </p>
+      <p>Book appointments and manage your schedule with ease.</p>
     </header>
+
     <main>
       <section class="info">
-        <h2>About This Project</h2>
+        <h2>What is this?</h2>
         <p>
-          SlotBookingApp is a dynamic scheduling platform built with Flask and
-          MongoDB Atlas. It provides role-based dashboards for staff and
-          students, real-time availability updates, and a secure login system to
-          streamline appointment management.
+          This is a lightweight slot booking platform built using Flask and
+          MongoDB. Staff can create time slots, and users can log in to book
+          them. It’s simple, secure, and fast.
         </p>
-        <h2>Upcoming Features</h2>
+        <h2>What’s coming next?</h2>
         <div class="features">
           <div class="feature-card">
-            <h3>Feedback Module</h3>
-            <p>
-              Collect user feedback directly and store it in the database for
-              continuous improvement.
-            </p>
+            <h3>Feedback</h3>
+            <p>Users can send feedback directly to help improve the app.</p>
           </div>
           <div class="feature-card">
-            <h3>Notification System</h3>
-            <p>
-              Real-time email and SMS alerts for bookings, cancellations, and
-              reminders.
-            </p>
+            <h3>Notifications</h3>
+            <p>Get alerts for new bookings, reminders, or changes.</p>
           </div>
           <div class="feature-card">
-            <h3>Admin Controls</h3>
-            <p>Advanced admin panel to manage users, slots, and analytics.</p>
+            <h3>Admin Panel</h3>
+            <p>Manage users, time slots, and view basic stats.</p>
           </div>
         </div>
       </section>
+
       <div class="form-container">
         <form method="POST" action="/">
-          <h2>Login to Your Account</h2>
-          <p>Enter your credentials to access the dashboard.</p>
+          <h2>Login</h2>
+          <p>Access your dashboard below.</p>
           {% if error %}
           <div class="error-message">{{ error }}</div>
           {% endif %}
@@ -200,7 +192,7 @@
             type="text"
             id="username"
             name="username"
-            placeholder="Enter your username"
+            placeholder="Username"
             required
           />
           <label for="password">Password</label>
@@ -208,16 +200,17 @@
             type="password"
             id="password"
             name="password"
-            placeholder="Enter your password"
+            placeholder="Password"
             required
           />
           <button type="submit">Login</button>
           <a class="register-link" href="/register"
-            >Don't have an account? Register here</a
+            >New here? Create an account</a
           >
         </form>
       </div>
     </main>
-    <footer>&copy; 2025 SlotBookingApp. All rights reserved.</footer>
+
+    <footer>&copy; 2025 adhvait.xyz — Built with Flask</footer>
   </body>
 </html>

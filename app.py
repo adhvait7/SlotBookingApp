@@ -24,7 +24,9 @@ app.secret_key = os.getenv("SECRET_KEY")
 #     print("Success")
 # else:
 #     print("Nah")
-
+result = slot_collection.delete_many({})
+if result.modified_count > 0:
+    print("success clearing entire db")
 days = ['Monday', 'Tuesday', 'Wednesday','Thursday','Friday']
 start_time = datetime.combine(datetime.today(), time(9,0))
 slots = [9,10,11,12,13,14]
