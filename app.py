@@ -1,9 +1,10 @@
-from flask import jsonify, Flask, render_template, request, redirect, session, abort
+from flask import jsonify, Flask, render_template, request, redirect, session, abort, flash
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from datetime import datetime, timedelta, time
 from dotenv import load_dotenv
+import random
 load_dotenv()
 
 
@@ -25,7 +26,7 @@ app.secret_key = os.getenv("SECRET_KEY")
 # else:
 #     print("Nah")
 result = slot_collection.delete_many({})
-if result.modified_count > 0:
+if result.deleted_count > 0:
     print("success clearing entire db")
 days = ['Monday', 'Tuesday', 'Wednesday','Thursday','Friday']
 start_time = datetime.combine(datetime.today(), time(9,0))
@@ -35,6 +36,7 @@ for h in slots:
     slots_str.append(f"{h}:00 - {h+1}:00")
 
 slots_to_insert = []
+
 for day in days:
     for i, slot in enumerate(slots_str):
         exist = slot_collection.find_one({"day":day, "time": slot})
@@ -49,8 +51,19 @@ for day in days:
         })
 if slots_to_insert:
     slot_collection.insert_many(slots_to_insert)
-print(slots_to_insert)
 
+profs = ["Prof. John", "Prof. McGonagall", "Prof. Dumbeldore", "Prof. Snape"]
+unassigned_slots = slot_collection.find({"staff": None})
+for slot in unassigned_slots:
+    if random.choice([True, False]):
+        random_prof = random.choice(profs)
+        slot_collection.update_one({
+            "_id": slot["_id"]
+        },{"$set": {'staff':random_prof}})
+    else:
+        continue
+print("Assigned placeholder slots")
+    
 @app.errorhandler(403)
 def forbidden(e):
     return render_template('403.html')
