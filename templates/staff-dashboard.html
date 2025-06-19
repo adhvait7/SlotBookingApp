@@ -2,6 +2,10 @@
 <html>
   <head>
     <title>Staff Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       * {
         box-sizing: border-box;
@@ -9,28 +13,76 @@
 
       body {
         margin: 0;
-        padding: 40px 20px;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f5f7fa;
+        font-family: "Libre Baskerville", serif;
+        background-color: #0a1a0f;
+        color: #cddfcb;
         display: flex;
-        justify-content: center;
-        align-items: flex-start;
         min-height: 100vh;
-        color: #222;
       }
 
-      .container {
-        background-color: #ffffff;
-        padding: 32px 40px;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      .sidebar {
+        width: 260px;
+        background-color: #122f23;
+        padding: 30px 20px;
+        border-right: 1px solid #2e4d3d;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .sidebar .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        border: 2px solid #3fb88a;
+      }
+
+      .sidebar h3 {
+        margin: 10px 0;
+        font-size: 18px;
+        color: #a7e8c2;
+      }
+
+      .sidebar a {
+        font-size: 14px;
+        color: #8ae6ce;
+        margin: 10px 0;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .sidebar a:hover {
+        text-decoration: underline;
+      }
+
+      .logout-form {
+        margin-top: auto;
         width: 100%;
-        max-width: 960px;
-        position: relative;
+      }
+
+      .logout-form button {
+        width: 100%;
+        padding: 10px;
+        background-color: #e53935;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .logout-form button:hover {
+        background-color: #c62828;
+      }
+
+      .main-content {
+        flex: 1;
+        padding: 40px;
       }
 
       h1 {
-        color: #333333;
+        color: #a7e8c2;
         margin-bottom: 24px;
         text-align: center;
         font-weight: 600;
@@ -42,82 +94,58 @@
         border-collapse: collapse;
         margin-top: 20px;
         font-size: 14px;
-        border: 1px solid #ddd;
-      }
-
-      thead {
-        background-color: #007bff;
+        border: 1px solid #3a5d4f;
+        background-color: #122f23;
       }
 
       th {
-        background-color: #007bff; /* Blue background for headers */
-        color: #fff; /* White text */
+        background-color: #2f5944;
+        color: #ffffff;
         font-weight: 600;
         padding: 12px;
-        border: 1px solid #007bff;
-        text-align: center;
+        border: 1px solid #3a5d4f;
       }
 
       td {
         padding: 12px;
         text-align: center;
-        border: 1px solid #ddd;
-        color: #333;
+        border: 1px solid #3a5d4f;
+        color: #cddfcb;
       }
 
       tbody tr:hover {
-        background-color: #eaf1fb; /* Light blue hover */
+        background-color: #1a3b2f;
         transition: background-color 0.2s ease-in-out;
       }
 
-      thead {
-        background-color: #f0f0f0;
-      }
-
-      th,
-      td {
-        padding: 12px;
-        text-align: center;
-        border: 1px solid #ddd;
-      }
-
-      tbody tr:hover {
-        background-color: #f9f9f9;
-      }
-
-      .lunch {
-        background-color: #eaeaea;
-        color: #555;
-        font-style: italic;
-        font-weight: 600;
-      }
-
-      form.booking-form {
+      .booking-form {
         margin-top: 30px;
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
         align-items: center;
         font-size: 14px;
+        justify-content: center;
       }
 
       .booking-form label {
         font-weight: 500;
+        color: #8ae6ce;
       }
 
       .booking-form select,
       .booking-form input[type="text"] {
         padding: 8px 12px;
-        border: 1px solid #ccc;
+        border: 1px solid #3a5d4f;
         border-radius: 6px;
         min-width: 150px;
-        background-color: #fff;
-        color: #333;
+        background-color: #1a3b2f;
+        color: #ffffff;
       }
 
       .booking-form button {
         padding: 10px 18px;
-        background-color: #0066cc;
+        background-color: #3fb88a;
         color: white;
         border: none;
         border-radius: 6px;
@@ -127,56 +155,45 @@
       }
 
       .booking-form button:hover {
-        background-color: #004d99;
-      }
-
-      .logout-form {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-      }
-
-      .logout-form button {
-        padding: 8px 16px;
-        background-color: #e53935;
-        color: white;
-        font-weight: 600;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-        transition: background-color 0.3s;
-      }
-
-      .logout-form button:hover {
-        background-color: #c62828;
+        background-color: #2f9470;
       }
     </style>
   </head>
   <body>
-    <div class="container">
+    <div class="sidebar">
+      <img
+        class="avatar"
+        src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
+        alt="Profile Picture"
+      />
+      <h3>{{ username }}</h3>
+      <a href="/edit-profile">✏️ Edit Profile</a>
+      <a href="/logout">🚪 Logout</a>
+    </div>
+
+    <div class="main-content">
       <h1>Welcome {{ username }}!<br />You are logged in as {{ role }}.</h1>
       <table>
         <thead>
           <tr>
             <th>Time / Day</th>
-            {%for timeslot in slots_str%}
-
-            <th>{{timeslot}}</th>
-            {%endfor%}
+            {% for timeslot in slots_str %}
+            <th>{{ timeslot }}</th>
+            {% endfor %}
           </tr>
         </thead>
         <tbody>
-          {%for day in table_data.keys()%}
+          {% for day in table_data.keys() %}
           <tr>
-            <td>{{day}}</td>
-            {%for staff in table_data[day].values()%}
-            <td>{{staff if staff else "Unassigned"}}</td>
-            {%endfor%}
+            <td>{{ day }}</td>
+            {% for staff in table_data[day].values() %}
+            <td>{{ staff if staff else "Unassigned" }}</td>
+            {% endfor %}
           </tr>
-          {%endfor%}
+          {% endfor %}
         </tbody>
       </table>
+
       <form action="/book-slot" method="POST" class="booking-form">
         <label for="day">Select Day:</label>
         <select name="day" id="day" required>
@@ -191,14 +208,11 @@
           <option value="">Select Time:</option>
         </select>
 
-        <label for="staff_name">{{username}}</label>
+        <label for="staff_name">{{ username }}</label>
 
         <button type="submit">Book Slot</button>
       </form>
 
-      <form action="/logout" method="GET" class="logout-form">
-        <button type="submit" class="button">Logout</button>
-      </form>
       <script>
         document.getElementById("day").addEventListener("change", function () {
           const selectedDay = this.value;
