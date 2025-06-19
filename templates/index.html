@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Slot Booking System</title>
+    <title>Slytherin Slot Booking</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       * {
         box-sizing: border-box;
@@ -11,14 +15,16 @@
       body {
         margin: 0;
         padding: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f0f2f5;
+        font-family: "Libre Baskerville", serif;
+        background-color: #0a1a0f;
+        color: #cddfcb;
       }
       header {
-        background-color: #007bff;
-        color: white;
+        background-color: #1a3b2f;
+        color: #cddfcb;
         padding: 20px;
         text-align: center;
+        border-bottom: 2px solid #2e4d3d;
       }
       header h1 {
         margin: 0;
@@ -40,21 +46,21 @@
         margin-bottom: 40px;
       }
       .info h2 {
-        color: #333;
+        color: #93e4c1;
         font-size: 24px;
         margin-bottom: 10px;
       }
       .info p {
-        color: #555;
+        color: #cddfcb;
         font-size: 16px;
         line-height: 1.5;
         margin-bottom: 20px;
       }
       .form-container {
-        background: #fff;
+        background: #122f23;
         padding: 30px 40px;
         border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         width: 100%;
         max-width: 400px;
       }
@@ -62,11 +68,11 @@
         text-align: center;
       }
       form h2 {
-        color: #007bff;
+        color: #8ae6ce;
         margin-bottom: 10px;
       }
       form p {
-        color: #555;
+        color: #cddfcb;
         margin-bottom: 20px;
       }
       label {
@@ -78,17 +84,18 @@
       input {
         width: 100%;
         padding: 10px;
-        border: 1px solid #ccc;
+        border: 1px solid #3a5d4f;
         border-radius: 6px;
+        background-color: #1a3b2f;
+        color: #ffffff;
         font-size: 14px;
-        transition: border-color 0.2s;
       }
       input:focus {
-        border-color: #007bff;
+        border-color: #8ae6ce;
         outline: none;
       }
       .error-message {
-        color: red;
+        color: #ff6b6b;
         margin: 10px 0;
         font-weight: bold;
         text-align: center;
@@ -97,7 +104,7 @@
         margin-top: 20px;
         width: 100%;
         padding: 12px;
-        background-color: #007bff;
+        background-color: #3fb88a;
         color: white;
         font-weight: bold;
         border: none;
@@ -107,12 +114,12 @@
         transition: background-color 0.2s;
       }
       button:hover {
-        background-color: #0056b3;
+        background-color: #2f9470;
       }
       .register-link {
         display: block;
         margin-top: 15px;
-        color: #007bff;
+        color: #8ae6ce;
         font-size: 14px;
         text-decoration: none;
       }
@@ -123,49 +130,47 @@
         text-align: center;
         padding: 20px;
         font-size: 14px;
-        color: #777;
+        color: #888;
       }
     </style>
   </head>
   <body>
     <header>
       <h1>Slot Booking System</h1>
-      <p>Simple scheduling for staff and students</p>
-      <h1 style="margin-bottom: 10px; font-size: 22px">
-        <marquee
-          behavior="alternate"
-          direction="left"
-          scrollamount="10"
-          style="color: #ffffff; font-weight: bold"
-        >
-          🚧 WEBAPP STILL UNDER DEVELOPMENT. SOME FEATURES MIGHT NOT WORK AS
-          EXPECTED... Thanks for your patience! 💻✨
-        </marquee>
-      </h1>
+      <p>
+        A website to enable businesses and ventures to allow booking slots
+        online!
+      </p>
+      <marquee
+        behavior="alternate"
+        scrollamount="8"
+        style="color: #a7e8c2; font-weight: bold"
+      >
+        🐍 Website is still under development. Some features may work as
+        expected.! Thank you for your patience. 🧙‍♂️
+      </marquee>
     </header>
 
     <main>
       <section class="info">
-        <h2>How it works</h2>
+        <h2>Welcome!</h2>
         <p>
-          This platform lets staff manage and publish class or appointment
-          slots. Students can view available time slots and enroll in them based
-          on availability.
+          Staff may conduct classes, while students can enroll in the classes.
         </p>
 
-        <h2>How to use</h2>
+        <h2>Using the System</h2>
         <p>
-          <strong>Staff Dashboard:</strong> Create, update, or cancel time slots
-          based on your schedule.<br />
-          <strong>Student Dashboard:</strong> Log in to view open slots and book
-          the ones you want to attend.
+          <strong>Staff Dashboard:</strong> Conduct classes, Cancel existing
+          classes, View students attending the classes..<br />
+          <strong>Student Dashboard:</strong> Check for available classes,
+          enroll, cancel and view enrolled classes.
         </p>
       </section>
 
       <div class="form-container">
         <form method="POST" action="/">
           <h2>Login</h2>
-          <p>Access your dashboard below.</p>
+
           {% if error %}
           <div class="error-message">{{ error }}</div>
           {% endif %}
@@ -177,22 +182,22 @@
             placeholder="Username"
             required
           />
+
           <label for="password">Password</label>
           <input
             type="password"
             id="password"
             name="password"
-            placeholder="Password"
+            placeholder="password"
             required
           />
-          <button type="submit">Login</button>
-          <a class="register-link" href="/register"
-            >New here? Create an account</a
-          >
+
+          <button type="submit">Enter</button>
+          <a class="register-link" href="/register">New here? Register Now</a>
         </form>
       </div>
     </main>
 
-    <footer>&copy; 2025 adhvait.xyz — Built with Flask</footer>
+    <footer>Powered by Flask</footer>
   </body>
 </html>
