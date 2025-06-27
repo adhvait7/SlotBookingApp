@@ -1,4 +1,4 @@
-from flask import jsonify, Flask, render_template, request, redirect, session, abort, flash
+from flask import jsonify, Flask, render_template, request, redirect, session, abort, flash, send_file
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
@@ -19,6 +19,10 @@ slot_collection = db['slots']
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
 
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_file('favicon.png', mimetype='image/png')
 
 # result = slot_collection.delete_many({})
 # if result.deleted_count > 0:
@@ -208,6 +212,49 @@ def book_slot():
             flash("⚠️ You have already enrolled or slot is unavailable.")
         return redirect('/student-dashboard')
 
+
+@app.route('/admin')
+def admin_panel():
+    return render_template("admin-panel.html")
+
+@app.route('/my-classes')
+def my_classes():
+    username = session['username']
+    role = session['role']
+    if username not in session['username']:
+        return redirect('/')
+    if role == 'student':
+        classes = list(slot_collection.find({'students': username}))
+        for slot in classes:
+            print(slot)
+    
+        return render_template('my-classes.html', classes=classes, role=role)
+    
+@app.route('/cancel-class', methods = ['POST'])
+def cancel_class():
+    if 'username' not in session or session.get('role') != 'student':
+        return redirect('/')
+    username = session['username']
+    day = request.form.get('day')
+    time = request.form.get('time')
+
+    
+    result = slot_collection.update_one(
+        {'day' : day,
+         'time' : time,
+         'students': username
+         },
+         {
+             '$pull':{'students': username},
+             '$inc': {'enrolled_count': -1}
+
+         }
+    )
+    if result.modified_count > 0:
+        flash("✅Successfully cancelled class.", "success")
+    else:
+        flash("⚠️Unable to cancel class", "warning")
+    return redirect('/my-classes')
 
 # @app.route('/create-slots', methods = ['GET', 'POST'])
 # def create_slots():
