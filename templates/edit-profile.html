@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background-color: #0d1b16;
+        color: #d8f6e5;
+      }
+
+      header {
+        background-color: #183c30;
+        padding: 16px;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 600;
+        color: #9cf5cb;
+        border-bottom: 1px solid #2b4d3f;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      h2 {
+        text-align: center;
+        color: #a9f9d0;
+        font-size: 20px;
+        margin-bottom: 30px;
+      }
+
+      .action-button {
+        padding: 12px 20px;
+        font-size: 15px;
+        background-color: #204737;
+        color: #b7ffe0;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        margin-bottom: 16px;
+        width: 100%;
+      }
+
+      .action-button:hover {
+        background-color: #2b5d49;
+      }
+
+      form {
+        margin-top: 10px;
+        background-color: #152d26;
+        padding: 16px;
+        border-radius: 8px;
+        display: none;
+      }
+
+      form label {
+        display: block;
+        margin-bottom: 8px;
+        color: #b7ffe0;
+      }
+
+      form input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 14px;
+        border-radius: 5px;
+        border: 1px solid #4a7d6b;
+        background-color: #0d1b16;
+        color: #d8f6e5;
+      }
+
+      form button {
+        background-color: #379e75;
+        color: #d8f6e5;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 500;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+      }
+
+      form button:hover {
+        background-color: #2c9e75;
+      }
+
+      .danger {
+        background-color: #a94442 !important;
+        color: #f8e5e5 !important;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .danger:hover {
+        background-color: #872f2d !important;
+      }
+
+      .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 30px;
+        color: #8cfbd5;
+        text-decoration: none;
+        font-size: 15px;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 600px) {
+        .action-button {
+          font-size: 14px;
+          padding: 10px;
+        }
+
+        form input {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>👤 Edit Profile</header>
+
+    <div class="container">
+      <h2>Welcome {{ username }}, what would you like to update?</h2>
+
+      <!-- Change Username -->
+      <button class="action-button" onclick="toggleForm('username-form')">
+        Change Username
+      </button>
+      <form id="username-form" action="/change-username" method="POST">
+        <label for="new-username">New Username</label>
+        <input type="text" name="new_username" id="new-username" required />
+        <button type="submit">Update Username</button>
+      </form>
+
+      <!-- Change Password -->
+      <button class="action-button" onclick="toggleForm('password-form')">
+        Change Password
+      </button>
+      <form id="password-form" action="/change-password" method="POST">
+        <label for="current-password">Current Password</label>
+        <input
+          type="password"
+          name="current_password"
+          id="current-password"
+          required
+        />
+
+        <label for="new-password">New Password</label>
+        <input type="password" name="new_password" id="new-password" required />
+        <button type="submit">Update Password</button>
+      </form>
+
+      <!-- Delete Account -->
+      <button class="action-button danger" onclick="toggleForm('delete-form')">
+        Delete Account
+      </button>
+      <form
+        id="delete-form"
+        action="/delete-account"
+        method="POST"
+        onsubmit="return validateDeleteForm();"
+      >
+        <label for="confirm-text"
+          >Type <strong>CONFIRM</strong> to proceed</label
+        >
+        <input
+          type="text"
+          id="confirm-text"
+          name="confirm_text"
+          placeholder="Type CONFIRM exactly"
+          required
+        />
+
+        <label for="delete-password">Current Password</label>
+        <input
+          type="password"
+          id="delete-password"
+          name="current_password"
+          required
+        />
+
+        <button class="danger" type="submit">
+          Permanently Delete My Account
+        </button>
+      </form>
+
+      <a class="back-link" href="/student-dashboard">← Back to Dashboard</a>
+    </div>
+
+    <script>
+      function toggleForm(id) {
+        const form = document.getElementById(id);
+        form.style.display = form.style.display === "block" ? "none" : "block";
+      }
+
+      function validateDeleteForm() {
+        const confirmInput = document
+          .getElementById("confirm-text")
+          .value.trim();
+        if (confirmInput !== "CONFIRM") {
+          alert("You must type CONFIRM exactly to proceed.");
+          return false;
+        }
+        return true;
+      }
+    </script>
+  </body>
+</html>

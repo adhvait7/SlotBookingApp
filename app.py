@@ -219,17 +219,27 @@ def admin_panel():
 
 @app.route('/my-classes')
 def my_classes():
+    if 'username' not in session or session['role'] not in session:
+        return redirect('/')
+    
     username = session['username']
     role = session['role']
-    if username not in session['username']:
-        return redirect('/')
+    
     if role == 'student':
         classes = list(slot_collection.find({'students': username}))
         for slot in classes:
             print(slot)
     
         return render_template('my-classes.html', classes=classes, role=role)
-    
+
+@app.route('/edit-profile')
+def edit_profile():
+    if 'username' not in session or session.get('role') != 'student':
+        return redirect('/')
+    username = session['username']
+    role = session['role']
+    if role == 'student':
+        return render_template('edit-profile.html', username = username)
 @app.route('/cancel-class', methods = ['POST'])
 def cancel_class():
     if 'username' not in session or session.get('role') != 'student':
