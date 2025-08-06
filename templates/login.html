@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slot Booking System</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Libre Baskerville", serif;
+        background-color: #0a1a0f;
+        color: #cddfcb;
+      }
+      header {
+        background-color: #1a3b2f;
+        color: #cddfcb;
+        padding: 20px;
+        text-align: center;
+        border-bottom: 2px solid #2e4d3d;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 32px;
+      }
+      header p {
+        margin: 5px 0 0;
+        font-size: 16px;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+      }
+      .info {
+        max-width: 800px;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .info h2 {
+        color: #93e4c1;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      .info p {
+        color: #cddfcb;
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+      .form-container {
+        background: #122f23;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        width: 100%;
+        max-width: 400px;
+      }
+      form {
+        text-align: center;
+      }
+      form h2 {
+        color: #8ae6ce;
+        margin-bottom: 10px;
+      }
+      form p {
+        color: #cddfcb;
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin: 10px 0 5px;
+        text-align: left;
+        font-weight: 500;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #3a5d4f;
+        border-radius: 6px;
+        background-color: #1a3b2f;
+        color: #ffffff;
+        font-size: 14px;
+      }
+      input:focus {
+        border-color: #8ae6ce;
+        outline: none;
+      }
+      .error-message {
+        color: #ff6b6b;
+        margin: 10px 0;
+        font-weight: bold;
+        text-align: center;
+      }
+      button {
+        margin-top: 20px;
+        width: 100%;
+        padding: 12px;
+        background-color: #3fb88a;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.2s;
+      }
+      button:hover {
+        background-color: #2f9470;
+      }
+      .register-link {
+        display: block;
+        margin-top: 15px;
+        color: #8ae6ce;
+        font-size: 14px;
+        text-decoration: none;
+      }
+      .register-link:hover {
+        text-decoration: underline;
+      }
+      footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+        color: #888;
+      }
+
+      footer a {
+        text-decoration: none;
+        display: inline-block;
+        margin: 0 10px;
+      }
+
+      footer a svg {
+        vertical-align: middle;
+        fill: #8ae6ce;
+        width: 20px;
+        height: 20px;
+        transition: fill 0.3s ease;
+      }
+
+      footer a:hover svg {
+        fill: #6fe2b8;
+      }
+    </style>
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+  </head>
+  <body>
+    <header>
+      <h1>Slot Booking System</h1>
+      <p>
+        A website to enable businesses and ventures to allow booking slots
+        online!
+      </p>
+      <marquee
+        behavior="alternate"
+        scrollamount="8"
+        style="color: #a7e8c2; font-weight: bold"
+      >
+        🐍 Website is still under development. Some features may not work as
+        expected.! Thank you for your patience. 🧙‍♂️
+      </marquee>
+    </header>
+
+    <main>
+      <section class="info">
+        <h2>Welcome!</h2>
+        <p>
+          Staff may conduct classes, while students can enroll in the classes.
+        </p>
+
+        <h2>Using the System</h2>
+        <p>
+          <strong>Staff Dashboard:</strong> Conduct classes, Cancel existing
+          classes, View students attending the classes..<br />
+          <strong>Student Dashboard:</strong> Check for available classes,
+          enroll, cancel and view enrolled classes.
+        </p>
+      </section>
+
+      <div class="form-container">
+        <form method="POST" action="/login">
+          <h2>Login</h2>
+
+          {% if error %}
+          <div class="error-message">{{ error }}</div>
+          {% endif %}
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Username"
+            required
+          />
+
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="password"
+            required
+          />
+
+          <button type="submit">Enter</button>
+          <a class="register-link" href="/register">New here? Register Now</a>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <p>Made with 💓 by Adhvait Aahlaad</p>
+      <div class="footer-links" style="margin-top: 10px">
+        <a
+          href="https://github.com/adhvait7"
+          target="_blank"
+          title="GitHub"
+          style="margin: 0 10px"
+        >
+          <svg width="20" height="20" fill="#8ae6ce" viewBox="0 0 16 16">
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2 0-2.48-.49-2.64-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.01.08-2.11 0 0 .67-.22 2.2.82A7.6 7.6 0 018 4.69a7.6 7.6 0 011.99.27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.91.08 2.11.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8 8 0 0016 8c0-4.42-3.58-8-8-8z"
+            />
+          </svg>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/adhvait-aahlaad-05846a352/"
+          target="_blank"
+          title="LinkedIn"
+          style="margin: 0 10px"
+        >
+          <svg width="20" height="20" fill="#8ae6ce" viewBox="0 0 16 16">
+            <path
+              d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.473 0 16 .513 16 1.146v13.708A1.147 1.147 0 0114.825 16H1.175A1.147 1.147 0 010 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.21c.837 0 1.358-.554 1.358-1.248C5.101 3.554 4.58 3 3.743 3c-.837 0-1.358.554-1.358 1.248 0 .694.52 1.248 1.358 1.248zM13.458 13.394V9.359c0-2.153-1.144-3.155-2.666-3.155-1.226 0-1.775.677-2.082 1.152v-0.99H6.31c.03.656 0 7.028 0 7.028h2.401v-3.924c0-.21.015-.419.077-.57.168-.419.551-.853 1.193-.853.842 0 1.178.644 1.178 1.587v3.76h2.299z"
+            />
+          </svg>
+        </a>
+        <a
+          href="https://www.instagram.com/adhvait7/"
+          target="_blank"
+          title="Instagram"
+          style="margin: 0 10px"
+        >
+          <svg width="20" height="20" fill="#8ae6ce" viewBox="0 0 24 24">
+            <path
+              d="M12 2.2c3.2 0 3.584.012 4.85.07 1.17.056 1.96.25 2.41.42.58.22 1 .49 1.44.93.44.44.71.86.93 1.44.17.45.36 1.24.42 2.41.06 1.26.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.25 1.96-.42 2.41a3.88 3.88 0 01-.93 1.44c-.44.44-.86.71-1.44.93-.45.17-1.24.36-2.41.42-1.26.06-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.96-.25-2.41-.42a3.88 3.88 0 01-1.44-.93 3.88 3.88 0 01-.93-1.44c-.17-.45-.36-1.24-.42-2.41C2.212 15.584 2.2 15.2 2.2 12s.012-3.584.07-4.85c.056-1.17.25-1.96.42-2.41.22-.58.49-1 .93-1.44.44-.44.86-.71 1.44-.93.45-.17 1.24-.36 2.41-.42C8.416 2.212 8.8 2.2 12 2.2zm0-2.2C8.737 0 8.332.013 7.052.072c-1.274.06-2.144.27-2.89.57a6.16 6.16 0 00-2.21 1.44A6.16 6.16 0 00.062 4.3c-.3.746-.51 1.616-.57 2.89C-.013 8.668 0 9.063 0 12s.013 3.332.072 4.612c.06 1.274.27 2.144.57 2.89a6.16 6.16 0 001.44 2.21 6.16 6.16 0 002.21 1.44c.746.3 1.616.51 2.89.57C8.668 23.987 9.063 24 12 24s3.332-.013 4.612-.072c1.274-.06 2.144-.27 2.89-.57a6.16 6.16 0 002.21-1.44 6.16 6.16 0 001.44-2.21c.3-.746.51-1.616.57-2.89.06-1.28.072-1.685.072-4.612s-.013-3.332-.072-4.612c-.06-1.274-.27-2.144-.57-2.89a6.16 6.16 0 00-1.44-2.21 6.16 6.16 0 00-2.21-1.44c-.746-.3-1.616-.51-2.89-.57C15.332.013 14.937 0 12 0zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.2a4.038 4.038 0 110-8.076 4.038 4.038 0 010 8.076zm6.406-11.88a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"
+            />
+          </svg>
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>
