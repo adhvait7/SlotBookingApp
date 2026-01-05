@@ -213,7 +213,11 @@
           classes attended: {{ enrolled_slots.count() if enrolled_slots else 0
           }}
         </p>
-        <form action="/logout" method="GET" class="logout-form">
+        <form
+          action="/project/slot-booking/logout"
+          method="GET"
+          class="logout-form"
+        >
           <button type="submit">Logout</button>
         </form>
       </div>
@@ -254,7 +258,11 @@
           </tbody>
         </table>
 
-        <form action="/book-slot" method="POST" class="booking-form">
+        <form
+          action="/project/slot-booking/book-slot"
+          method="POST"
+          class="booking-form"
+        >
           <label for="day">Select Day:</label>
           <select name="day" id="day" required>
             <option value="">Select Day</option>

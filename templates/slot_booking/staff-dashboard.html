@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Staff Dashboard</title>
     <link
@@ -56,26 +56,6 @@
         text-decoration: underline;
       }
 
-      .logout-form {
-        margin-top: auto;
-        width: 100%;
-      }
-
-      .logout-form button {
-        width: 100%;
-        padding: 10px;
-        background-color: #e53935;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        font-weight: bold;
-        cursor: pointer;
-      }
-
-      .logout-form button:hover {
-        background-color: #c62828;
-      }
-
       .main-content {
         flex: 1;
         padding: 40px;
@@ -85,7 +65,6 @@
         color: #a7e8c2;
         margin-bottom: 24px;
         text-align: center;
-        font-weight: 600;
         font-size: 24px;
       }
 
@@ -94,28 +73,23 @@
         border-collapse: collapse;
         margin-top: 20px;
         font-size: 14px;
-        border: 1px solid #3a5d4f;
         background-color: #122f23;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #3a5d4f;
       }
 
       th {
         background-color: #2f5944;
         color: #ffffff;
-        font-weight: 600;
-        padding: 12px;
-        border: 1px solid #3a5d4f;
-      }
-
-      td {
-        padding: 12px;
-        text-align: center;
-        border: 1px solid #3a5d4f;
-        color: #cddfcb;
       }
 
       tbody tr:hover {
         background-color: #1a3b2f;
-        transition: background-color 0.2s ease-in-out;
       }
 
       .booking-form {
@@ -124,34 +98,29 @@
         flex-wrap: wrap;
         gap: 12px;
         align-items: center;
-        font-size: 14px;
         justify-content: center;
       }
 
       .booking-form label {
-        font-weight: 500;
         color: #8ae6ce;
       }
 
-      .booking-form select,
-      .booking-form input[type="text"] {
+      .booking-form select {
         padding: 8px 12px;
-        border: 1px solid #3a5d4f;
         border-radius: 6px;
-        min-width: 150px;
+        border: 1px solid #3a5d4f;
         background-color: #1a3b2f;
-        color: #ffffff;
+        color: #fff;
       }
 
       .booking-form button {
         padding: 10px 18px;
         background-color: #3fb88a;
-        color: white;
         border: none;
         border-radius: 6px;
+        color: white;
         font-weight: 600;
         cursor: pointer;
-        transition: background-color 0.3s;
       }
 
       .booking-form button:hover {
@@ -159,7 +128,9 @@
       }
     </style>
   </head>
+
   <body>
+    <!-- SIDEBAR -->
     <div class="sidebar">
       <img
         class="avatar"
@@ -167,76 +138,84 @@
         alt="Profile Picture"
       />
       <h3>{{ username }}</h3>
-      <a href="/edit-profile">✏️ Edit Profile</a>
-      <a href="/logout">🚪 Logout</a>
+
+      <a href="/projects/slot-booking/edit-profile">✏️ Edit Profile</a>
+      <a href="/projects/slot-booking/logout">🚪 Logout</a>
     </div>
 
+    <!-- MAIN CONTENT -->
     <div class="main-content">
-      <h1>Welcome {{ username }}!<br />You are logged in as {{ role }}.</h1>
+      <h1>Welcome {{ username }}!<br />You are logged in as {{ role }}</h1>
+
+      <!-- TIMETABLE -->
       <table>
         <thead>
           <tr>
-            <th>Time / Day</th>
-            {% for timeslot in slots_str %}
-            <th>{{ timeslot }}</th>
+            <th>Day / Time</th>
+            {% for slot in slots_str %}
+            <th>{{ slot }}</th>
             {% endfor %}
           </tr>
         </thead>
         <tbody>
-          {% for day in table_data.keys() %}
+          {% for day in table_data %}
           <tr>
             <td>{{ day }}</td>
-            {% for staff in table_data[day].values() %}
-            <td>{{ staff if staff else "Unassigned" }}</td>
+            {% for slot in slots_str %}
+            <td>
+              {{ table_data[day].get(slot, "Unassigned") or "Unassigned" }}
+            </td>
             {% endfor %}
           </tr>
           {% endfor %}
         </tbody>
       </table>
 
-      <form action="/book-slot" method="POST" class="booking-form">
-        <label for="day">Select Day:</label>
+      <!-- BOOK SLOT -->
+      <form
+        action="/projects/slot-booking/book-slot"
+        method="POST"
+        class="booking-form"
+      >
+        <label>Select Day:</label>
         <select name="day" id="day" required>
-          <option value="">Select Day:</option>
-          {% for day in table_data.keys() %}
+          <option value="">Select Day</option>
+          {% for day in table_data %}
           <option value="{{ day }}">{{ day }}</option>
           {% endfor %}
         </select>
 
-        <label for="timeDropDown">Select Time Slot:</label>
+        <label>Select Time:</label>
         <select name="timeDropDown" id="timeDropDown" required>
-          <option value="">Select Time:</option>
+          <option value="">Select Time</option>
         </select>
-
-        <label for="staff_name">{{ username }}</label>
 
         <button type="submit">Book Slot</button>
       </form>
-
-      <script>
-        document.getElementById("day").addEventListener("change", function () {
-          const selectedDay = this.value;
-          const timeDropdown = document.getElementById("timeDropDown");
-
-          timeDropdown.innerHTML = "<option value=''>Select Time:</option>";
-
-          if (selectedDay) {
-            fetch(`/get-timeslots/${selectedDay}`)
-              .then((response) => response.json())
-              .then((data) => {
-                data.forEach((time) => {
-                  const option = document.createElement("option");
-                  option.value = time;
-                  option.textContent = time;
-                  timeDropdown.appendChild(option);
-                });
-              })
-              .catch((error) => {
-                console.error("Error fetching time slots:", error);
-              });
-          }
-        });
-      </script>
     </div>
+
+    <!-- SCRIPT -->
+    <script>
+      document.getElementById("day").addEventListener("change", function () {
+        const selectedDay = this.value;
+        const timeDropdown = document.getElementById("timeDropDown");
+
+        timeDropdown.innerHTML = "<option value=''>Select Time</option>";
+
+        if (selectedDay) {
+          fetch(`/projects/slot-booking/get-timeslots/${selectedDay}`)
+            .then((response) => response.json())
+            .then((data) => {
+              data.forEach((time) => {
+                const option = document.createElement("option");
+                option.value = time;
+                option.textContent = time;
+                timeDropdown.appendChild(option);
+              });
+            })
+            .catch((err) => console.error(err));
+        }
+      });
+    </script>
   </body>
 </html>

@@ -89,7 +89,11 @@
     </style>
   </head>
   <body>
-    <form method="POST" action="/register" class="form-container">
+    <form
+      method="POST"
+      action="/projects/slot-booking/register"
+      class="form-container"
+    >
       <h2>Registration Portal :)</h2>
       <p class="intro">
         Welcome to the Slot Booking Registration Portal.<br />
@@ -112,6 +116,15 @@
       </select>
 
       <button type="submit">Register!</button>
+      <p style="margin-top: 18px; text-align: center; font-size: 14px">
+        Already have an account?
+        <a
+          href="/projects/slot-booking/login"
+          style="color: #8ae6ce; text-decoration: none; font-weight: 600"
+        >
+          Login here
+        </a>
+      </p>
     </form>
   </body>
 </html>
