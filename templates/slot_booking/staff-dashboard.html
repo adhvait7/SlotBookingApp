@@ -2,10 +2,12 @@
 <html lang="en">
   <head>
     <title>Staff Dashboard</title>
+
     <link
       href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap"
       rel="stylesheet"
     />
+
     <style>
       * {
         box-sizing: border-box;
@@ -20,6 +22,7 @@
         min-height: 100vh;
       }
 
+      /* ---------- SIDEBAR ---------- */
       .sidebar {
         width: 260px;
         background-color: #122f23;
@@ -30,7 +33,7 @@
         align-items: center;
       }
 
-      .sidebar .avatar {
+      .avatar {
         width: 100px;
         height: 100px;
         border-radius: 50%;
@@ -56,6 +59,7 @@
         text-decoration: underline;
       }
 
+      /* ---------- MAIN ---------- */
       .main-content {
         flex: 1;
         padding: 40px;
@@ -63,11 +67,40 @@
 
       h1 {
         color: #a7e8c2;
-        margin-bottom: 24px;
+        margin-bottom: 20px;
         text-align: center;
         font-size: 24px;
       }
 
+      /* ---------- FLASH MESSAGES ---------- */
+      .flash-container {
+        max-width: 900px;
+        margin: 0 auto 20px;
+      }
+
+      .flash {
+        padding: 10px 14px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .flash-success {
+        background-color: #e6f4ea;
+        color: #1e4620;
+      }
+
+      .flash-error {
+        background-color: #fdecea;
+        color: #611a15;
+      }
+
+      .flash-info {
+        background-color: #e8f0fe;
+        color: #1a3d7c;
+      }
+
+      /* ---------- TABLE ---------- */
       table {
         width: 100%;
         border-collapse: collapse;
@@ -92,6 +125,7 @@
         background-color: #1a3b2f;
       }
 
+      /* ---------- BOOKING FORM ---------- */
       .booking-form {
         margin-top: 30px;
         display: flex;
@@ -103,6 +137,7 @@
 
       .booking-form label {
         color: #8ae6ce;
+        font-size: 14px;
       }
 
       .booking-form select {
@@ -137,15 +172,25 @@
         src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
         alt="Profile Picture"
       />
+
       <h3>{{ username }}</h3>
 
-      <a href="/projects/slot-booking/edit-profile">✏️ Edit Profile</a>
-      <a href="/projects/slot-booking/logout">🚪 Logout</a>
+      <a href="{{ url_for('logout') }}">🚪 Logout</a>
     </div>
 
     <!-- MAIN CONTENT -->
     <div class="main-content">
-      <h1>Welcome {{ username }}!<br />You are logged in as {{ role }}</h1>
+      <h1>Welcome {{ username }}<br />Role: {{ role }}</h1>
+
+      <!-- FLASH MESSAGES -->
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %}
+      <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %}
 
       <!-- TIMETABLE -->
       <table>
@@ -162,9 +207,7 @@
           <tr>
             <td>{{ day }}</td>
             {% for slot in slots_str %}
-            <td>
-              {{ table_data[day].get(slot, "Unassigned") or "Unassigned" }}
-            </td>
+            <td>{{ table_data[day].get(slot) or "Unassigned" }}</td>
             {% endfor %}
           </tr>
           {% endfor %}
@@ -173,11 +216,11 @@
 
       <!-- BOOK SLOT -->
       <form
-        action="/projects/slot-booking/book-slot"
+        action="{{ url_for('book_slot') }}"
         method="POST"
         class="booking-form"
       >
-        <label>Select Day:</label>
+        <label for="day">Day</label>
         <select name="day" id="day" required>
           <option value="">Select Day</option>
           {% for day in table_data %}
@@ -185,12 +228,12 @@
           {% endfor %}
         </select>
 
-        <label>Select Time:</label>
+        <label for="timeDropDown">Time</label>
         <select name="timeDropDown" id="timeDropDown" required>
           <option value="">Select Time</option>
         </select>
 
-        <button type="submit">Book Slot</button>
+        <button type="submit">Claim Slot</button>
       </form>
     </div>
 
@@ -202,19 +245,24 @@
 
         timeDropdown.innerHTML = "<option value=''>Select Time</option>";
 
-        if (selectedDay) {
-          fetch(`/projects/slot-booking/get-timeslots/${selectedDay}`)
-            .then((response) => response.json())
-            .then((data) => {
-              data.forEach((time) => {
-                const option = document.createElement("option");
-                option.value = time;
-                option.textContent = time;
-                timeDropdown.appendChild(option);
-              });
-            })
-            .catch((err) => console.error(err));
-        }
+        if (!selectedDay) return;
+
+        const url = "{{ url_for('get_timeslots', day='__DAY__') }}".replace(
+          "__DAY__",
+          selectedDay
+        );
+
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            data.forEach((time) => {
+              const option = document.createElement("option");
+              option.value = time;
+              option.textContent = time;
+              timeDropdown.appendChild(option);
+            });
+          })
+          .catch((err) => console.error("Error fetching slots:", err));
       });
     </script>
   </body>

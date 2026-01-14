@@ -26,7 +26,7 @@ users_collection = db["users"]
 slot_collection = db["slots"]
 
 # --------------------
-# GLOBAL TIME SLOTS (THIS WAS MISSING)
+# GLOBAL TIME SLOTS
 # --------------------
 slots_str = [
     "9:00 - 10:00",
@@ -175,36 +175,69 @@ def staff_dashboard():
 # --------------------
 @app.route(f"{BASE}/get-timeslots/<day>")
 def get_timeslots(day):
-    available = slot_collection.find({"day": day, "staff": None})
-    return jsonify([slot["time"] for slot in available])
+    role = session.get("role")
+
+    if role == "staff":
+        query = {"day": day, "staff": None}
+    elif role == "student":
+        query = {"day": day, "staff": {"$ne": None}}
+    else:
+        abort(403)
+
+    slots = slot_collection.find(query)
+    return jsonify([slot["time"] for slot in slots])
+
 
 @app.route(f"{BASE}/book-slot", methods=["POST"])
 def book_slot():
+
+    # ---------- Auth ----------
     if not is_logged_in():
         return redirect(f"{BASE}/login")
+
+    role = session.get("role")
+    if role not in ["staff", "student"]:
+        abort(403)
 
     day = request.form.get("day")
     time = request.form.get("timeDropDown")
 
     if not day or not time:
-        return redirect(f"{BASE}/{session['role']}-dashboard")
+        flash("Invalid slot selection.", "error")
+        return redirect(
+            f"{BASE}/staff-dashboard"
+            if role == "staff"
+            else f"{BASE}/student-dashboard"
+        )
 
-    if session["role"] == "staff":
-        slot_collection.update_one(
+    # ---------- Staff flow ----------
+    if role == "staff":
+        result = slot_collection.update_one(
             {"day": day, "time": time, "staff": None},
             {"$set": {"staff": session["username"]}}
         )
+
+        if result.matched_count == 1:
+            flash("Slot successfully assigned to you.", "success")
+        else:
+            flash("This slot has already been taken.", "error")
+
         return redirect(f"{BASE}/staff-dashboard")
 
-    slot_collection.update_one(
-        {
-            "day": day,
-            "time": time,
-            "staff": {"$ne": None},
-            "students": {"$ne": session["username"]}
-        },
-        {"$push": {"students": session["username"]}}
+    # ---------- Student flow ----------
+    result = slot_collection.update_one(
+        {"day": day, "time": time, "staff": {"$ne": None}},
+        {"$addToSet": {"students": session["username"]}}
     )
+
+    if result.modified_count == 1:
+        slot_collection.update_one(
+            {"day": day, "time": time},
+            {"$inc": {"enrolled_count": 1}}
+        )
+        flash("You have been enrolled successfully.", "success")
+    else:
+        flash("You are already enrolled in this class.", "info")
 
     return redirect(f"{BASE}/student-dashboard")
 
