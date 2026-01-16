@@ -4,11 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Adhvait Aahlaad | Portfolio</title>
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
+
     <style>
+      :root {
+        --text-main: #1f2933;
+        --text-muted: #4b5563;
+        --accent: #1f4fd8;
+        --border-light: #e5e7eb;
+        --bg-soft: #fafafa;
+      }
+
       * {
         box-sizing: border-box;
         margin: 0;
@@ -17,34 +27,42 @@
 
       body {
         font-family: "Inter", sans-serif;
-        background-color: #ffffff;
-        color: #222222;
-        line-height: 1.6;
-        padding: 40px 20px;
+        background-color: var(--bg-soft);
+        color: var(--text-main);
+        line-height: 1.65;
+        padding: 48px 20px;
         max-width: 900px;
         margin: auto;
       }
 
       h1 {
-        font-size: 2.2em;
-        margin-bottom: 0.2em;
-        color: #1a1a1a;
+        font-size: 2.3em;
+        font-weight: 700;
+        margin-bottom: 6px;
+        letter-spacing: -0.02em;
       }
 
       h2 {
-        margin-top: 2em;
-        margin-bottom: 0.5em;
-        color: #003366;
+        margin-top: 2.2em;
+        margin-bottom: 0.6em;
+        font-size: 1.25em;
+        color: #0f172a;
+        border-bottom: 1px solid var(--border-light);
+        padding-bottom: 6px;
       }
 
-      p,
-      li {
-        margin-bottom: 0.6em;
+      p {
+        margin-bottom: 0.8em;
+      }
+
+      .muted {
+        color: var(--text-muted);
       }
 
       a {
-        color: #0066cc;
+        color: var(--accent);
         text-decoration: none;
+        font-weight: 500;
       }
 
       a:hover {
@@ -52,143 +70,202 @@
       }
 
       ul {
-        padding-left: 20px;
+        padding-left: 22px;
+        margin-top: 8px;
+      }
+
+      li {
+        margin-bottom: 6px;
       }
 
       .contact {
-        margin-top: 1em;
+        margin-top: 8px;
         font-size: 0.95em;
+        color: var(--text-muted);
       }
 
       .section {
+        margin-bottom: 2.6em;
+      }
+
+      .tagline {
+        margin-top: 6px;
+        font-size: 0.95em;
+        color: var(--text-muted);
+      }
+
+      .project {
         margin-bottom: 2em;
+      }
+
+      .project-header {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .project-title {
+        font-weight: 600;
+        font-size: 1.05em;
+      }
+
+      .project-links a {
+        font-size: 0.9em;
       }
     </style>
   </head>
 
   <body>
+    <!-- Header -->
     <h1>Adhvait Aahlaad</h1>
+    <p class="tagline">
+      Software engineer focused on backend development and the problem solving
+      behind building reliable systems.
+    </p>
+
     <p class="contact">
       <a href="mailto:adhvait7@gmail.com">adhvait7@gmail.com</a> | +91
-      7981031990
-      <br />
+      7981031990 |
       <a href="https://github.com/adhvait7" target="_blank">GitHub</a> |
       <a href="https://linkedin.com/in/adhvait7/" target="_blank">LinkedIn</a>
     </p>
 
+    <!-- About -->
     <div class="section">
       <h2>About Me</h2>
       <p>
-        B.Tech Information Technology graduate from Sathyabama University
-        (2021–2025) with hands-on experience building backend systems and data
-        pipelines using Python. Interested in data engineering and backend
-        development, with a focus on designing reliable, observable systems that
-        handle real-world data.
+        I’m a software engineer who enjoys backend development for the
+        problem-solving it involves. I built a class booking and scheduling
+        system using Flask, where I worked through data flow, validation, and
+        real-world edge cases.
+      </p>
+      <p class="muted">
+        I am currently exploring backend engineering and data-oriented roles
+        where reliability, observability, and clean design matter.
       </p>
     </div>
 
+    <!-- Skills -->
     <div class="section">
       <h2>Technical Skills</h2>
       <ul>
         <li><strong>Programming:</strong> Python, SQL</li>
+        <li><strong>Backend and Web:</strong> Flask, Jinja2, HTML, CSS</li>
         <li>
-          <strong>Libraries & Tools:</strong> pandas, requests, matplotlib, Git
+          <strong>Data and Libraries:</strong> pandas, requests, matplotlib
         </li>
         <li><strong>Databases:</strong> MySQL, MongoDB</li>
-        <li><strong>Web:</strong> Flask, HTML, CSS, Jinja2</li>
+        <li><strong>Tools:</strong> Git, REST APIs</li>
       </ul>
     </div>
 
+    <!-- Projects -->
     <div class="section">
       <h2>Projects</h2>
-      <ul>
-        <li>
-          <strong>Crypto Market Data Pipeline</strong>
-          (<a
-            href="https://github.com/adhvait7/data-ingestion-pipeline"
-            target="_blank"
-            >GitHub</a
-          >)
-          <br />
-          Built an end-to-end data ingestion pipeline in Python to periodically
-          fetch cryptocurrency price data from external REST APIs, persist
-          immutable raw records, and transform JSON responses into structured
-          CSV datasets for analysis.
-          <br />
-          • Implemented logging and basic error handling to monitor pipeline
-          execution and failures
-          <br />
-          • Designed modular ingestion and transformation layers to simulate
-          real-world data engineering workflows
-          <br />
-          • Deployed the pipeline with health checks and uptime monitoring
-        </li>
 
-        <li>
-          <strong>Class Booking & Scheduling System</strong>
-          (<a href="/projects/slot-booking/login" target="_blank">Live Demo</a>)
-          <br />
-          Developed a backend-driven web application using Flask that enables
-          staff to create schedules and users to reserve available slots.
-          <br />
-          • Implemented booking validation and availability checks
-          <br />
-          • Integrated a relational database to persist schedules and bookings
-          <br />
-          • Rendered dynamic pages using Jinja2 templates
-        </li>
+      <div class="project">
+        <div class="project-header">
+          <span class="project-title">
+            Class Booking and Scheduling System
+          </span>
+          <span class="project-links">
+            <a href="/projects/slot-booking/login" target="_blank">Live Demo</a>
+          </span>
+        </div>
+        <p class="muted">
+          Backend-driven web application that allows staff to create schedules
+          and users to reserve available slots.
+        </p>
+        <ul>
+          <li>Built using Python, Flask, and Jinja2</li>
+          <li>Implemented booking validation and availability checks</li>
+          <li>
+            Designed relational database schemas for schedules and bookings
+          </li>
+        </ul>
+      </div>
 
-        <li>
-          <strong>Discord Bot</strong>
-          (<a href="https://github.com/adhvait7/Discord-Bot" target="_blank"
-            >GitHub</a
-          >)
-          <br />
-          Python-based bot integrating external APIs to process user activity
-          and automate responses, focusing on event handling and data
-          processing.
-        </li>
-      </ul>
+      <div class="project">
+        <div class="project-header">
+          <span class="project-title">Crypto Market Data Pipeline</span>
+          <span class="project-links">
+            <a
+              href="https://github.com/adhvait7/data-ingestion-pipeline"
+              target="_blank"
+              >GitHub</a
+            >
+          </span>
+        </div>
+        <p class="muted">
+          End-to-end data ingestion pipeline designed to simulate real-world
+          data engineering workflows.
+        </p>
+        <ul>
+          <li>Fetched cryptocurrency price data from external REST APIs</li>
+          <li>
+            Stored immutable raw records and transformed JSON into CSV datasets
+          </li>
+          <li>
+            Implemented logging and basic error handling for observability
+          </li>
+        </ul>
+      </div>
+
+      <div class="project">
+        <div class="project-header">
+          <span class="project-title">Discord Bot</span>
+          <span class="project-links">
+            <a href="https://github.com/adhvait7/Discord-Bot" target="_blank"
+              >GitHub</a
+            >
+          </span>
+        </div>
+        <p class="muted">
+          Python-based bot focused on event handling, API integration, and
+          automation.
+        </p>
+        <ul>
+          <li>Integrated external APIs to process user activity</li>
+          <li>Implemented event-driven responses and command handling</li>
+        </ul>
+      </div>
     </div>
 
+    <!-- Experience -->
     <div class="section">
       <h2>Experience</h2>
       <ul>
         <li>
-          <strong>Full Stack Developer Intern — Hackwit Technologies</strong>
-          (Jan 2024 – Feb 2024)
-          <br />
-          Assisted in developing and testing web application features using
-          React.js and Node.js, worked with REST APIs and MongoDB for CRUD
-          operations, and participated in debugging and code reviews.
-        </li>
-
-        <li>
-          <strong>Technical Intern — Crucible Barbell</strong>
-          <br />
-          Assisted with configuration and setup of GymMaster software and helped
-          improve operational workflows related to scheduling and crowd
-          management.
+          <strong>Full Stack Developer Intern - Hackwit Technologies</strong>
+          (Jan 2024 - Feb 2024)
+          <ul>
+            <li>
+              Worked on web application features using React.js and Node.js
+            </li>
+            <li>Integrated REST APIs and MongoDB for CRUD operations</li>
+            <li>Participated in debugging, testing, and code reviews</li>
+          </ul>
         </li>
       </ul>
     </div>
 
+    <!-- Certifications -->
     <div class="section">
       <h2>Certifications</h2>
       <ul>
-        <li>JavaScript – Udemy</li>
-        <li>MERN Stack – Hackwit Technologies</li>
+        <li>JavaScript - Udemy</li>
+        <li>MERN Stack - Hackwit Technologies</li>
+        <li>Python and Backend Development - LinkedIn Learning</li>
       </ul>
     </div>
 
+    <!-- Extracurricular -->
     <div class="section">
-      <h2>Extracurricular & Achievements</h2>
+      <h2>Extracurricular and Achievements</h2>
       <ul>
-        <li>
-          Event Coordinator, English Literary Club — Sathyabama University
-        </li>
-        <li>Volunteer, Rotary Club – Wellness Carnival</li>
-        <li>Gold’s Gym Fit Together Challenge – ₹15,000 Gift Voucher Winner</li>
+        <li>Volunteer, Rotary Club - Wellness Carnival</li>
+        <li>Volunteer, Robin Hood Army</li>
       </ul>
     </div>
   </body>

@@ -122,7 +122,7 @@ def register():
             "password": generate_password_hash(password),
             "role": role
         })
-
+        flash("Registration successful. Please log in", "success")
         return redirect(f"{BASE}/login")
 
     return render_template("slot_booking/register.html")
